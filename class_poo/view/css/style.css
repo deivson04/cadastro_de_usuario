@@ -1,0 +1,13 @@
+.custom-width {
+    max-width: 400px;
+    width: 100%;
+}
+
+.full-height {
+    height: 80vh; 
+  }
+
+h3 {
+    color: #1E90FF;
+    
+}
