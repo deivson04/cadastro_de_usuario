@@ -1,7 +1,7 @@
 <?php
 require_once "../fachada/fachada.php";
 require_once "../object/classUsuario.php";
-require_once "../controller/UsuarioController.php";  
+
 
 
 
