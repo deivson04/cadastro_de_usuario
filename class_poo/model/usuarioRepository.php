@@ -31,7 +31,7 @@ class UsuarioRepository
     public function buscarUsuario($objectUsuario)
     {
         $id_usuario = $objectUsuario->getId_usuario();
-        
+
         $sql = "SELECT
                   *
                 FROM usuario
@@ -100,5 +100,16 @@ class UsuarioRepository
                 $buscar_idade";
         $result = $this->conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function verificarUsuarioExistente($objectUsuario)
+    {
+        $email = $objectUsuario->getEmail();
+
+        $sql = " SELECT
+                    *
+                 FROM usuario
+                 WHERE email = '$email'";
+        return $this->conn->query($sql);
     }
 }

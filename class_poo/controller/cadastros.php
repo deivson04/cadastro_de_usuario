@@ -2,6 +2,7 @@
 
 require_once "../model/usuarioRepository.php";
 require_once "../object/classUsuario.php";
+require_once "../fachada/Fachada.php";
 
 $objectUsuario = new Usuario();
 
@@ -12,12 +13,23 @@ $objectUsuario->setSenha($_POST["senha"]);
 
 $cadastrarUsuario = new UsuarioRepository();
 
-$cadastro = $cadastrarUsuario->cadastrarUsuario($objectUsuario);
+$fachada = new Fachada();
 
-if ($cadastro === TRUE) {
-    echo "Usuario cadastrado com sucesso";
+
+
+$verificarEmail = $fachada->verificarUsuarioExistente($objectUsuario);
+
+if ($verificarEmail->num_rows > 0) {
+    echo "O email já está cadastrado";
 } else {
-    echo "Error no sql <br> " . $cadastro;
+    $cadastro = $cadastrarUsuario->cadastrarUsuario($objectUsuario);
+
+    if ($cadastro === TRUE) {
+        echo "Usuário cadastrado com sucesso";
+    } else {
+        echo "Erro no SQL: <br>" . $cadastro;
+    }
 }
+
 
 echo "<br><a href='../index.html'>Voltar ao login</a>";
