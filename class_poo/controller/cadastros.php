@@ -1,7 +1,7 @@
 <?php
 
 require_once "../model/usuarioRepository.php";
-require_once "../object/classUsuario.php";
+require_once "../object/Usuario.php";
 require_once "../fachada/Fachada.php";
 
 $objectUsuario = new Usuario();

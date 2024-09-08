@@ -11,7 +11,7 @@ class Usuario
     private $idadeDe;
     private $idadeAte;
 
-    public function getId_usuario()
+    public function getIdUsuario()
     {
         return $this->id_usuario;
     }
@@ -46,7 +46,7 @@ class Usuario
         return $this->idadeAte;
     }
 
-    public function setId_usuario($id_usuario)
+    public function setIdUsuario($id_usuario)
     {
         $this->id_usuario = $id_usuario;
     }
