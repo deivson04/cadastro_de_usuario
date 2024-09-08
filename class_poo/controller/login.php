@@ -1,7 +1,7 @@
 <?php
 
 require_once "../model/loginRepository.php";
-require_once "../object/classLogin.php";
+require_once "../object/Login.php";
 
 $objectLogin = new Login();
 

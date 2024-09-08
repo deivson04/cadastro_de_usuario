@@ -1,11 +1,11 @@
 <?php
 
 require_once "../model/usuarioRepository.php";
-require_once "../object/classUsuario.php";
+require_once "../object/Usuario.php";
 
 $objectUsuario = new Usuario();
 
-$objectUsuario->setId_usuario($_GET["id_usuario"]);
+$objectUsuario->setIdUsuario($_GET["id_usuario"]);
 
 $restore = new UsuarioRepository();
 

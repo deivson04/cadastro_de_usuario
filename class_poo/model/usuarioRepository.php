@@ -30,7 +30,7 @@ class UsuarioRepository
 
     public function buscarUsuario($objectUsuario)
     {
-        $id_usuario = $objectUsuario->getId_usuario();
+        $id_usuario = $objectUsuario->getIdUsuario();
 
         $sql = "SELECT
                   *
@@ -43,7 +43,7 @@ class UsuarioRepository
 
     public function atualizarUsuarios($objectUsuario)
     {
-        $id_usuario = $objectUsuario->getId_usuario();
+        $id_usuario = $objectUsuario->getIdUsuario();
         $nome = $objectUsuario->getNome();
         $email = $objectUsuario->getEmail();
         $idade = $objectUsuario->getIdade();
@@ -58,7 +58,7 @@ class UsuarioRepository
 
     public function deletarUsuario($objectUsuario)
     {
-        $id_usuario = $objectUsuario->getId_usuario();
+        $id_usuario = $objectUsuario->getIdUsuario();
 
         date_default_timezone_set('America/Recife');
         $data = date('Y-m-d H:i:s');
@@ -71,7 +71,7 @@ class UsuarioRepository
 
     public function restoreUsuario($objectUsuario)
     {
-        $id_usuario = $objectUsuario->getId_usuario();
+        $id_usuario = $objectUsuario->getIdUsuario();
 
         $sql = " UPDATE usuario
                  SET deleted_at = null    

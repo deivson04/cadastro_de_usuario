@@ -1,6 +1,6 @@
 <?php
 require_once "../model/usuarioRepository.php";
-require_once "../object/classUsuario.php";
+require_once "../object/Usuario.php";
 
 class UsuarioController
 {
@@ -16,8 +16,6 @@ class UsuarioController
 
     public function buscarUsuario($objectUsuario)
     {
-
-        $objectUsuario->setId_usuario($_GET["id_usuario"]);
         return $this->usuarioRepository->buscarUsuario($objectUsuario);
     }
 

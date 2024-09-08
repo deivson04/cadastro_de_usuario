@@ -1,8 +1,11 @@
 <?php 
 require_once "../fachada/fachada.php";
+require_once "../object/Usuario.php";
 
 $fachada = new Fachada();
-$row = $fachada->buscarUsuario($_GET["id_usuario"]);
+$usuario = new Usuario();
+$usuario->setIdUsuario($_GET["id_usuario"]);
+$row = $fachada->buscarUsuario($usuario);
 
 ?>
 <!DOCTYPE html>

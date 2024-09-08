@@ -1,10 +1,10 @@
 <?php
 require_once "../model/usuarioRepository.php";
-require_once "../object/classUsuario.php";
+require_once "../object/Usuario.php";
 
 $objectUsuario = new Usuario();
 
-$objectUsuario->setId_usuario($_POST["id_usuario"]);
+$objectUsuario->setIdUsuario($_POST["id_usuario"]);
 $objectUsuario->setNome($_POST["nome"]);
 $objectUsuario->setEmail($_POST["email"]);
 $objectUsuario->setIdade($_POST["idade"]);
