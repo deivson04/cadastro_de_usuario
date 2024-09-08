@@ -7,7 +7,11 @@ class ConexaoDB {
     private $database = "db_usuario";
 
     public function conectarBanco() {
-      return  mysqli_connect($this->servername, $this->username, $this->password, $this->database);
+      try {
+        return new PDO('mysql:dbname=' . $this->database . ';host=' . $this->servername . ';charset=UTF8', $this->username, $this->password);
+      } catch (PDOException $e) {
+          echo 'Erro ao conectar com o MySQL: ' . $e->getMessage();
+      }
     }
 }
 

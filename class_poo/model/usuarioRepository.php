@@ -35,10 +35,12 @@ class UsuarioRepository
         $sql = "SELECT
                   *
                 FROM usuario
-                WHERE id_usuario = $id_usuario";
+                WHERE id_usuario = :id_usuario";
 
-        $result = $this->conn->query($sql);
-        return $result->fetch_assoc();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":id_usuario", $id_usuario);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function atualizarUsuarios($objectUsuario)
@@ -85,8 +87,9 @@ class UsuarioRepository
                     *
                  FROM usuario
                  WHERE deleted_at is not null";
-        $result =  $this->conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+       $stmt = $this->conn->prepare($sql);
+       $stmt->execute();
+       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function listarUsuarios($buscar_nome, $buscar_idade)
@@ -98,8 +101,9 @@ class UsuarioRepository
                 WHERE deleted_at is null
                 $buscar_nome
                 $buscar_idade";
-        $result = $this->conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function verificarUsuarioExistente($objectUsuario)
