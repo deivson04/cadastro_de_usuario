@@ -19,7 +19,7 @@ $fachada = new Fachada();
 
 $verificarEmail = $fachada->verificarUsuarioExistente($objectUsuario);
 
-if ($verificarEmail->num_rows > 0) {
+if ($verificarEmail) {
     echo "O email já está cadastrado";
 } else {
     $cadastro = $cadastrarUsuario->cadastrarUsuario($objectUsuario);
