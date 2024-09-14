@@ -23,9 +23,16 @@ class UsuarioRepository
 
         $sql = "INSERT INTO usuario (nome, email, idade, senha)
                    VALUES 
-        ('$nome', '$email', '$idade', '$senha')";
+        (:nome, :email, :idade, :senha)";
 
-        return $this->conn->query($sql);
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindParam(":nome", $nome);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":idade", $idade);
+        $stmt->bindParam(":senha", $senha);
+
+        return $stmt->execute();
     }
 
     public function buscarUsuario($objectUsuario)
@@ -35,10 +42,12 @@ class UsuarioRepository
         $sql = "SELECT
                   *
                 FROM usuario
-                WHERE id_usuario = $id_usuario";
+                WHERE id_usuario = :id_usuario";
 
-        $result = $this->conn->query($sql);
-        return $result->fetch_assoc();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":id_usuario", $id_usuario);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function atualizarUsuarios($objectUsuario)
@@ -50,10 +59,17 @@ class UsuarioRepository
         $senha = $objectUsuario->getSenha();
 
         $sql = " UPDATE usuario
-                 SET nome = '$nome', email = '$email', idade = '$idade', senha = '$senha'
-                 WHERE id_usuario = $id_usuario";
+                 SET nome = :nome, email = :email, idade = :idade, senha = :senha
+                 WHERE id_usuario = :id_usuario";
 
-        return $this->conn->query($sql);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":nome", $nome);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":idade", $idade);
+        $stmt->bindParam(":senha", $senha);
+        $stmt->bindParam(":id_usuario", $id_usuario);
+
+        return $stmt->execute();
     }
 
     public function deletarUsuario($objectUsuario)
@@ -65,8 +81,11 @@ class UsuarioRepository
 
         $sql = " UPDATE usuario
                  SET deleted_at = '$data'
-                 WHERE id_usuario = $id_usuario";
-        return $this->conn->query($sql);
+                 WHERE id_usuario = :id_usuario";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":id_usuario", $id_usuario);
+
+        return $stmt->execute();
     }
 
     public function restoreUsuario($objectUsuario)
@@ -75,8 +94,11 @@ class UsuarioRepository
 
         $sql = " UPDATE usuario
                  SET deleted_at = null    
-                 WHERE id_usuario = $id_usuario";
-        return $this->conn->query($sql);
+                 WHERE id_usuario = :id_usuario";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":id_usuario", $id_usuario);
+
+        return $stmt->execute();
     }
 
     public function usuariosRestaurados()
@@ -85,8 +107,9 @@ class UsuarioRepository
                     *
                  FROM usuario
                  WHERE deleted_at is not null";
-        $result =  $this->conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function listarUsuarios($buscar_nome, $buscar_idade)
@@ -98,8 +121,9 @@ class UsuarioRepository
                 WHERE deleted_at is null
                 $buscar_nome
                 $buscar_idade";
-        $result = $this->conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function verificarUsuarioExistente($objectUsuario)
@@ -109,7 +133,11 @@ class UsuarioRepository
         $sql = " SELECT
                     *
                  FROM usuario
-                 WHERE email = '$email'";
-        return $this->conn->query($sql);
+                 WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindParam(":email", $email);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

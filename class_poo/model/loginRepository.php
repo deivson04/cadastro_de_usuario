@@ -24,8 +24,11 @@ class LoginRepository
         $sql = " SELECT
                    *
                 FROM usuario
-                WHERE email = '$email' and senha = '$senha' ";
-        $result = $this->conn->query($sql);
-        return $result->fetch_assoc();
+                WHERE email = :email and senha = :senha ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":senha", $senha);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
