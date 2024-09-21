@@ -1,8 +1,8 @@
 <?php
+session_start();
+
 require_once "../fachada/fachada.php";
 require_once "../object/Usuario.php";
-
-
 
 
 $usuarioFiltro = new Usuario();
@@ -42,6 +42,7 @@ $usuario = $fachada->usuariosRestaurados();
 </head>
 
 <body>
+  <?php echo "Bem Vindo(a): " . '<b>' . $_SESSION["nome"] . '</b>'; ?>
   <form action="" method="get">
     <h3>Busca por nome</h3>
     <input type="text" name="busca" id="" placeholder="digite o nome">

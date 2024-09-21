@@ -32,8 +32,21 @@ class UsuarioRepository
         $stmt->bindParam(":idade", $idade);
         $stmt->bindParam(":senha", $senha);
 
-        return $stmt->execute();
+        if($stmt->execute()) {
+            $id_usuario = $this->conn->lastInsertId();
+
+            $sqlLogin = "INSERT INTO login (id_usuario) 
+                            VALUE (:id_usuario)";
+            $stmt = $this->conn->prepare($sqlLogin);
+            
+            $stmt->bindParam(":id_usuario", $id_usuario);
+
+        if ($stmt->execute()) {
+            return true;
+        }
     }
+    return false;
+}
 
     public function buscarUsuario($objectUsuario)
     {
@@ -137,6 +150,8 @@ class UsuarioRepository
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(":email", $email);
+
+        $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
