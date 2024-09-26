@@ -22,9 +22,12 @@ class LoginRepository
         $senha = $objectLogin->getSenha();
         
         $sql = " SELECT
-                   *
-                FROM usuario
-                WHERE email = :email and senha = :senha ";
+                   u.id_usuario, u.nome
+                FROM usuario u
+                JOIN login l
+                ON u.id_usuario = l.id_usuario
+                WHERE u.email = :email and u.senha = :senha ";
+                
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(":email", $email);
         $stmt->bindParam(":senha", $senha);
