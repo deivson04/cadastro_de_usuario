@@ -37,11 +37,11 @@ class UsuarioRepository
 
             $sqlLogin = "INSERT INTO login (id_usuario) 
                             VALUE (:id_usuario)";
-            $stmt = $this->conn->prepare($sqlLogin);
+            $stmtLogin = $this->conn->prepare($sqlLogin);
             
-            $stmt->bindParam(":id_usuario", $id_usuario);
+            $stmtLogin->bindParam(":id_usuario", $id_usuario);
 
-        if ($stmt->execute()) {
+        if ($stmtLogin->execute()) {
             return true;
         }
     }
