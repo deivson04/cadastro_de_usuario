@@ -1,5 +1,6 @@
 <?php
 require_once "conexao.php";
+require_once "loginRepository.php";
 
 class UsuarioRepository
 {
@@ -32,21 +33,16 @@ class UsuarioRepository
         $stmt->bindParam(":idade", $idade);
         $stmt->bindParam(":senha", $senha);
 
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             $id_usuario = $this->conn->lastInsertId();
+            $classLogin = new LoginRepository();
 
-            $sqlLogin = "INSERT INTO login (id_usuario) 
-                            VALUE (:id_usuario)";
-            $stmtLogin = $this->conn->prepare($sqlLogin);
-            
-            $stmtLogin->bindParam(":id_usuario", $id_usuario);
-
-        if ($stmtLogin->execute()) {
-            return true;
+            if ($classLogin->cadastrarLogin($id_usuario)) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
 
     public function buscarUsuario($objectUsuario)
     {
